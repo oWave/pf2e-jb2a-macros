@@ -825,7 +825,7 @@ pf2eAnimations.crosshairs = async function crosshairs(
       // make it wait or go into an unescapable infinite loop of pain
       await warpgate.wait(50);
 
-      const ray = new Ray(args.token.center, crosshairs);
+      const ray = new Ray((args.token ?? args.tokenD).center, crosshairs);
 
       const distance = canvas.grid.measureDistances([{ ray }], {
         gridSpaces: true,
@@ -835,6 +835,8 @@ pf2eAnimations.crosshairs = async function crosshairs(
       if (cachedDistance !== distance) {
         cachedDistance = distance;
         crosshairs.label = `${distance} ft.`;
+        if (opts.crosshairConfig?.label)
+          crosshairs.label += `\n${opts.crosshairConfig.label}`;
         if (
           distance > opts.range ||
           (opts.noCollision
