@@ -835,8 +835,6 @@ pf2eAnimations.crosshairs = async function crosshairs(
       if (cachedDistance !== distance) {
         cachedDistance = distance;
         crosshairs.label = `${distance} ft.`;
-        if (opts.crosshairConfig?.label)
-          crosshairs.label += `\n${opts.crosshairConfig.label}`;
         if (
           distance > opts.range ||
           (opts.noCollision
@@ -881,6 +879,10 @@ pf2eAnimations.crosshairs = async function crosshairs(
 
           await Sequencer.EffectManager.endEffects({ name: "Out of Range!" });
         }
+
+        if (opts.crosshairConfig?.label)
+          crosshairs.label += `\n${opts.crosshairConfig.label}`;
+
         crosshairs.draw();
       }
     }
